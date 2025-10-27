@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maafin Aku Ya Suyinggg 🥺</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
+            padding: 40px;
+            background: white;
+            border-radius: 30px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            max-width: 500px;
+            position: relative;
+            animation: fadeIn 1s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .emoji {
+            font-size: 100px;
+            animation: bounce 2s infinite;
+            display: inline-block;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        h1 {
+            color: #667eea;
+            margin: 20px 0;
+            font-size: 32px;
+        }
+
+        p {
+            color: #555;
+            font-size: 18px;
+            line-height: 1.6;
+            margin: 20px 0;
+        }
+
+        .buttons {
+            margin-top: 30px;
+        }
+
+        button {
+            font-size: 18px;
+            padding: 15px 40px;
+            margin: 10px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+            font-family: Arial, sans-serif;
+        }
+
+        .yes-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .yes-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+
+        .no-btn {
+            background: #f0f0f0;
+            color: #666;
+            position: relative;
+        }
+
+        .hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        .heart {
+            position: absolute;
+            font-size: 30px;
+            animation: float 4s ease-in infinite;
+            opacity: 0;
+        }
+
+        @keyframes float {
+            0% {
+                opacity: 1;
+                transform: translateY(0) rotate(0deg);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-1000px) rotate(360deg);
+            }
+        }
+
+        .message {
+            display: none;
+            margin-top: 20px;
+            padding: 20px;
+            background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%);
+            border-radius: 15px;
+            animation: slideIn 0.5s ease-out;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hide {
+            display: none !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="hearts" id="hearts"></div>
+    
+    <div class="container">
+        <div class="emoji" id="emoji">🥺</div>
+        <h1 id="title">Maafin Aku Ya Suyinggg...</h1>
+        <p id="text">
+            Aku tahu aku salah... 😔<br>
+            Aku janji nggak akan ngulangin lagi deh!<br>
+            Maafin aku ya? 🙏
+        </p>
+        
+        <div class="buttons" id="buttons">
+            <button class="yes-btn" onclick="acceptApology()">Iya, Dimaafin ❤️</button>
+            <button class="no-btn" id="noBtn" onmouseover="moveButton()" onclick="moveButton()">Nggak Mau 😠</button>
+        </div>
+
+        <div class="message" id="message">
+            <h2 style="color: #d63031;">YEAYYYY! MAKASIH SUYINGGG! 🥰</h2>
+            <p style="color: #2d3436; margin-top: 10px;">
+                Aku janji akan lebih baik lagi! Love you! 💕
+            </p>
+        </div>
+    </div>
+
+    <script>
+        let moveCount = 0;
+
+        function moveButton() {
+            const btn = document.getElementById('noBtn');
+            const container = document.querySelector('.container');
+            
+            moveCount++;
+            
+            if (moveCount === 1) {
+                btn.textContent = 'Yakin? 🤔';
+            } else if (moveCount === 2) {
+                btn.textContent = 'Masa sih? 😢';
+            } else if (moveCount === 3) {
+                btn.textContent = 'Ayolah... 🥺';
+            } else if (moveCount >= 4) {
+                btn.textContent = 'Please... 😭';
+            }
+            
+            const maxX = window.innerWidth - btn.offsetWidth - 100;
+            const maxY = window.innerHeight - btn.offsetHeight - 100;
+            
+            const randomX = Math.random() * maxX;
+            const randomY = Math.random() * maxY;
+            
+            btn.style.position = 'fixed';
+            btn.style.left = randomX + 'px';
+            btn.style.top = randomY + 'px';
+            btn.style.transition = 'all 0.3s ease';
+        }
+
+        function acceptApology() {
+            document.getElementById('emoji').textContent = '🥰';
+            document.getElementById('buttons').classList.add('hide');
+            document.getElementById('message').style.display = 'block';
+            
+            createHearts();
+            
+            // Confetti effect
+            for (let i = 0; i < 50; i++) {
+                setTimeout(() => createHeart(), i * 100);
+            }
+        }
+
+        function createHearts() {
+            const heartsContainer = document.getElementById('hearts');
+            for (let i = 0; i < 20; i++) {
+                setTimeout(() => createHeart(), i * 200);
+            }
+        }
+
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.className = 'heart';
+            heart.textContent = ['❤️', '💕', '💖', '💗', '💓'][Math.floor(Math.random() * 5)];
+            heart.style.left = Math.random() * 100 + '%';
+            heart.style.animationDuration = (Math.random() * 2 + 3) + 's';
+            
+            document.getElementById('hearts').appendChild(heart);
+            
+            setTimeout(() => heart.remove(), 5000);
+        }
+    </script>
+</body>
+</html>
